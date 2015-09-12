@@ -188,7 +188,13 @@ public class GameController : MonoBehaviour
 
 	private void LateUpdate ()
 	{
+#if UNITY_ANDROID
 		TouchControll ();
+#elif UNITY_EDITOR
+		if (Input.GetMouseButtonDown (0)) {
+			RaycastMethod (Input.mousePosition);
+		}
+#endif
 
 	}
 

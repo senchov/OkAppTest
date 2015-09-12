@@ -42,6 +42,10 @@ public class UIManager : MonoBehaviour
 	private GameController
 		_gameCntrl;
 
+	[SerializeField]
+	private UILabel
+		_bombAmounText;
+
 	private bool _isTime = false;
 	#endregion
 
@@ -119,6 +123,11 @@ public class UIManager : MonoBehaviour
 			Debug.Log ("LoseView is null");
 			return;
 		}
+
+		if (!_bombAmounText) {
+			Debug.Log ("Bomb label is null");
+			return;
+		}
 		#endregion
 
 		_startView.SetActive (true);
@@ -131,6 +140,11 @@ public class UIManager : MonoBehaviour
 		_gameCntrl.LevelUp += ChoseView;
 		_gameCntrl.LoseGame += HandleLoseGame;
 		_gameCntrl.LoseLifeEvent += HandleLoseLifeEvent;
+	}
+
+	private void Update ()
+	{
+		_bombAmounText.text = _gameCntrl.BombAmount.ToString ();
 	}
 
 	private void HandleLoseLifeEvent (int obj)
@@ -156,7 +170,6 @@ public class UIManager : MonoBehaviour
 		}
 
 		TimeIsOverHandler ();
-		//ChoseView ();
 	}
 
 	private void ChoseView ()
